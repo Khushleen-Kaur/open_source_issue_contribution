@@ -8,7 +8,13 @@ def is_palindrome(text: str) -> bool:
         is_palindrome("madam") returns True.
         is_palindrome("hello") returns False.
     """
-    return text == text[::-1]
+
+    cleaned = "".join(
+        ch.lower()
+        for ch in text
+        if ch.isalnum()
+    )
+    return cleaned == cleaned[::-1]
 
 
 def reverse_words(text: str) -> str:
