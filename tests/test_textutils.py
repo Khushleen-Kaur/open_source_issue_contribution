@@ -11,7 +11,6 @@ def test_palindrome_ignores_case():
     assert is_palindrome("Level")
 
 
-@pytest.mark.xfail(reason="Known bug: spaces and punctuation are not ignored")
 def test_palindrome_ignores_punctuation():
     assert is_palindrome("A man, a plan, a canal: Panama")
 
