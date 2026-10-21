@@ -3,7 +3,15 @@ import argparse
 import sys
 import uuid
 
-from fixit import __version__, convert, jsonfmt, password, textutils, wordcount
+from fixit import (
+    __version__,
+    base64utils,
+    convert,
+    jsonfmt,
+    password,
+    textutils,
+    wordcount,
+)
 
 CONVERSIONS = {
     "c2f": convert.celsius_to_fahrenheit,
@@ -40,6 +48,16 @@ def build_parser() -> argparse.ArgumentParser:
 
     rw = sub.add_parser("reverse", help="reverse the words in a sentence")
     rw.add_argument("text")
+
+    b64 = sub.add_parser("base64", help="encode or decode Base64 text")
+    b64_sub = b64.add_subparsers(dest="base64_action", required=True)
+
+    b64_encode = b64_sub.add_parser("encode", help="encode text as Base64")
+    b64_encode.add_argument("text")
+
+    b64_decode = b64_sub.add_parser("decode", help="decode Base64 text")
+    b64_decode.add_argument("text")
+
     return parser
 
 
@@ -63,6 +81,11 @@ def main(argv=None) -> int:
             print(textutils.is_palindrome(args.text))
         elif args.command == "reverse":
             print(textutils.reverse_words(args.text))
+        elif args.command == "base64":
+            if args.base64_action == "encode":
+                print(base64utils.encode_text(args.text))
+            else:
+                print(base64utils.decode_text(args.text))
         return 0
     except ValueError as e:
         print(str(e), file=sys.stderr)
