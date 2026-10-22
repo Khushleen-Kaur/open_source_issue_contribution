@@ -56,6 +56,10 @@ def run_palindrome(args):
 def run_reverse(args):
     print(textutils.reverse_words(args.text))
 
+def run_top_words(args):
+    for word, count in wordcount.top_words(args.text, args.n):
+        print(f"{word}: {count}")
+
 COMMAND_TABLE = {
     "wc": run_wc,
     "convert": run_convert,
@@ -64,6 +68,7 @@ COMMAND_TABLE = {
     "json": run_json,
     "palindrome": run_palindrome,
     "reverse": run_reverse,
+    "top-words": run_top_words,
 }
 
 def build_parser() -> argparse.ArgumentParser:
@@ -103,6 +108,10 @@ def build_parser() -> argparse.ArgumentParser:
 
     rw = sub.add_parser("reverse", help="reverse the words in a sentence")
     rw.add_argument("text")
+
+    top = sub.add_parser("top-words", help="show the most frequent words")
+    top.add_argument("text")
+    top.add_argument("--n", type=int, default=3, help="number of words to show (default: 3)")
     return parser
 
 
