@@ -1,5 +1,9 @@
 """Word, line and character counting."""
 
+import re
+from collections import Counter
+from typing import List, Tuple
+
 
 def count_words(text: str) -> int:
     """Count the words in the given text.
@@ -29,3 +33,16 @@ def count_chars(text: str) -> int:
         count_chars("hi!") returns 3.
     """
     return len(text)
+
+
+def top_words(text: str, n: int = 3) -> List[Tuple[str, int]]:
+    """Return up to n most frequent words and their counts.
+
+    Words are matched case-insensitively; punctuation is treated as a
+    separator. Ties retain the order in which words first appeared.
+    """
+    if n < 1:
+        raise ValueError("n must be at least 1")
+
+    words = re.findall(r"\b\w+\b", text.lower())
+    return Counter(words).most_common(n)
