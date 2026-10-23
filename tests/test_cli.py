@@ -29,3 +29,17 @@ def test_wc_file_not_found(capsys):
 
     assert result == 1
     assert "missing_file.txt" in capsys.readouterr().err
+
+
+def test_top_words_command(capsys):
+    result = main(["top-words", "Cat dog CAT bird dog.", "--n", "2"])
+
+    assert result == 0
+    assert capsys.readouterr().out == "cat: 2\ndog: 2\n"
+
+
+def test_top_words_command_defaults_to_three(capsys):
+    result = main(["top-words", "one two three four"])
+
+    assert result == 0
+    assert capsys.readouterr().out == "one: 1\ntwo: 1\nthree: 1\n"

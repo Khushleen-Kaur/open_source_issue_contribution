@@ -74,11 +74,9 @@ def run_reverse(args):
     print(textutils.reverse_words(args.text))
 
 
-def run_base64(args):
-    if args.base64_action == "encode":
-        print(base64utils.encode_text(args.text))
-    else:
-        print(base64utils.decode_text(args.text))
+def run_top_words(args):
+    for word, count in wordcount.top_words(args.text, args.n):
+        print(f"{word}: {count}")
 
 
 def run_slugify(args):
@@ -95,6 +93,7 @@ COMMAND_TABLE = {
     "reverse": run_reverse,
     "base64": run_base64,
     "slugify": run_slugify,
+    "top-words": run_top_words,
 }
 
 
@@ -164,6 +163,10 @@ def build_parser() -> argparse.ArgumentParser:
         help="convert text into a URL-friendly slug",
     )
     sg.add_argument("text")
+
+    top = sub.add_parser("top-words", help="show the most frequent words")
+    top.add_argument("text")
+    top.add_argument("--n", type=int, default=3, help="number of words to show (default: 3)")
 
     return parser
 

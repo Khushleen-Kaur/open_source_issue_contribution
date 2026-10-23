@@ -1,5 +1,5 @@
 import pytest
-from fixit.wordcount import count_chars, count_lines, count_words
+from fixit.wordcount import count_chars, count_lines, count_words, top_words
 
 
 def test_count_words_simple():
@@ -22,3 +22,20 @@ def test_count_lines_trailing_newline():
 
 def test_count_chars():
     assert count_chars("abc") == 3
+
+
+def test_top_words_ignores_case_and_punctuation():
+    assert top_words("Cat, dog! CAT; bird dog.", 2) == [("cat", 2), ("dog", 2)]
+
+
+def test_top_words_preserves_first_seen_order_for_ties():
+    assert top_words("pear apple pear apple") == [("pear", 2), ("apple", 2)]
+
+
+def test_top_words_empty_text():
+    assert top_words("") == []
+
+
+def test_top_words_requires_positive_n():
+    with pytest.raises(ValueError, match="at least 1"):
+        top_words("hello", 0)
