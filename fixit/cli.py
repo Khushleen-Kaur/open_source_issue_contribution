@@ -96,7 +96,7 @@ def build_parser() -> argparse.ArgumentParser:
     """
     parser = argparse.ArgumentParser(prog="fixit", description="A tiny toolbox to practice open source.")
     parser.add_argument("--version", action="version", version=f"fixit {__version__}")
-    sub = parser.add_subparsers(dest="command", required=True)
+    sub = parser.add_subparsers(dest="command")
 
     wc = sub.add_parser("wc", help="count words, lines and characters")
     wc.add_argument("text", nargs="?")
@@ -138,8 +138,17 @@ def main(argv=None) -> int:
     Example:
         main(["convert", "100", "c2f"]) prints 212.0 and returns 0.
     """
+    parser = build_parser()
+
+    if argv is None:
+        argv = sys.argv[1:]
+
+    if not argv:
+        parser.print_help()
+        return 0
+
     try:
-        args = build_parser().parse_args(argv)
+        args = parser.parse_args(argv)
         COMMAND_TABLE[args.command](args)
         return 0
     except ValueError as e:
