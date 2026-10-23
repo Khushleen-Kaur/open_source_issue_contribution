@@ -1,7 +1,5 @@
 """Word, line and character counting."""
 
-import re
-
 
 def count_words(text: str) -> int:
     """Count the words in the given text.
@@ -10,7 +8,7 @@ def count_words(text: str) -> int:
         count_words("hello world") returns 2.
         count_words("one two three") returns 3.
     """
-    return len(re.split(r'\s+', text.strip()))
+    return len(text.split())
 
 
 def count_lines(text: str) -> int:
@@ -20,7 +18,7 @@ def count_lines(text: str) -> int:
         count_lines("hello\nworld") returns 2.
         count_lines("hello") returns 1.
     """
-    return len(text.split("\n"))
+    return len(text.splitlines())
 
 
 def count_chars(text: str) -> int:

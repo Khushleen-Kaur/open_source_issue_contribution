@@ -1,4 +1,3 @@
-import pytest
 from fixit.textutils import is_palindrome, reverse_words, slugify
 
 
@@ -6,7 +5,6 @@ def test_simple_palindrome():
     assert is_palindrome("level")
 
 
-@pytest.mark.xfail(reason="Known bug: case-sensitive")
 def test_palindrome_ignores_case():
     assert is_palindrome("Level")
 
