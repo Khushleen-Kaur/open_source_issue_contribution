@@ -13,6 +13,7 @@ CONVERSIONS = {
     "mi2km": convert.miles_to_km,
 }
 
+
 def run_wc(args):
     if args.file is not None:
         try:
@@ -30,6 +31,7 @@ def run_wc(args):
         f"chars={wordcount.count_chars(text)}"
     )
 
+
 def run_convert(args):
     try:
         result = CONVERSIONS[args.kind](args.value)
@@ -37,12 +39,15 @@ def run_convert(args):
     except KeyError:
         raise ValueError(f"Error: unknown conversion '{args.kind}'")
 
+
 def run_password(args):
     print(password.generate(args.length, use_symbols=args.symbols))
+
 
 def run_uuid(args):
     for _ in range(args.count):
         print(uuid.uuid4())
+
 
 def run_json(args):
     try:
@@ -50,15 +55,23 @@ def run_json(args):
     except ValueError as e:
         raise ValueError(f"Error: invalid JSON - {e}")
 
+
 def run_palindrome(args):
     print(textutils.is_palindrome(args.text))
+
 
 def run_reverse(args):
     print(textutils.reverse_words(args.text))
 
+
 def run_top_words(args):
     for word, count in wordcount.top_words(args.text, args.n):
         print(f"{word}: {count}")
+
+
+def run_slugify(args):
+    print(textutils.slugify(args.text))
+
 
 COMMAND_TABLE = {
     "wc": run_wc,
@@ -68,8 +81,10 @@ COMMAND_TABLE = {
     "json": run_json,
     "palindrome": run_palindrome,
     "reverse": run_reverse,
+    "slugify": run_slugify,
     "top-words": run_top_words,
 }
+
 
 def build_parser() -> argparse.ArgumentParser:
     """Build the argument parser for the fixit command-line interface.
@@ -83,7 +98,6 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--version", action="version", version=f"fixit {__version__}")
     sub = parser.add_subparsers(dest="command", required=True)
 
-
     wc = sub.add_parser("wc", help="count words, lines and characters")
     wc.add_argument("text", nargs="?")
     wc.add_argument("--file", type=Path, help="read text from a file")
@@ -91,7 +105,6 @@ def build_parser() -> argparse.ArgumentParser:
     cv = sub.add_parser("convert", help="convert units")
     cv.add_argument("value", type=float)
     cv.add_argument("kind", choices=sorted(CONVERSIONS))
-
 
     pw = sub.add_parser("password", help="generate a password")
     pw.add_argument("--length", type=int, default=12)
@@ -109,9 +122,13 @@ def build_parser() -> argparse.ArgumentParser:
     rw = sub.add_parser("reverse", help="reverse the words in a sentence")
     rw.add_argument("text")
 
+    sg = sub.add_parser("slugify", help="convert text into a URL-friendly slug")
+    sg.add_argument("text")
+
     top = sub.add_parser("top-words", help="show the most frequent words")
     top.add_argument("text")
     top.add_argument("--n", type=int, default=3, help="number of words to show (default: 3)")
+
     return parser
 
 
