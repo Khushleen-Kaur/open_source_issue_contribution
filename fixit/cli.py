@@ -1,10 +1,20 @@
+
 """Command line entry point: `fixit <command>`."""
 import argparse
 import sys
 import uuid
 from pathlib import Path
 
-from fixit import __version__, convert, jsonfmt, password, textutils, wordcount
+from fixit import (
+    __version__,
+    base64utils,
+    convert,
+    jsonfmt,
+    password,
+    textutils,
+    wordcount,
+)
+
 
 CONVERSIONS = {
     "c2f": convert.celsius_to_fahrenheit,
@@ -81,6 +91,7 @@ COMMAND_TABLE = {
     "json": run_json,
     "palindrome": run_palindrome,
     "reverse": run_reverse,
+    "base64": run_base64,
     "slugify": run_slugify,
     "top-words": run_top_words,
 }
@@ -94,8 +105,15 @@ def build_parser() -> argparse.ArgumentParser:
         args = parser.parse_args(["wc", "hello world"])
         assert args.command == "wc"
     """
-    parser = argparse.ArgumentParser(prog="fixit", description="A tiny toolbox to practice open source.")
-    parser.add_argument("--version", action="version", version=f"fixit {__version__}")
+    parser = argparse.ArgumentParser(
+        prog="fixit",
+        description="A tiny toolbox to practice open source.",
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"fixit {__version__}",
+    )
     sub = parser.add_subparsers(dest="command", required=True)
 
     wc = sub.add_parser("wc", help="count words, lines and characters")
@@ -122,7 +140,28 @@ def build_parser() -> argparse.ArgumentParser:
     rw = sub.add_parser("reverse", help="reverse the words in a sentence")
     rw.add_argument("text")
 
-    sg = sub.add_parser("slugify", help="convert text into a URL-friendly slug")
+    b64 = sub.add_parser("base64", help="encode or decode Base64 text")
+    b64_sub = b64.add_subparsers(
+        dest="base64_action",
+        required=True,
+    )
+
+    b64_encode = b64_sub.add_parser(
+        "encode",
+        help="encode text as Base64",
+    )
+    b64_encode.add_argument("text")
+
+    b64_decode = b64_sub.add_parser(
+        "decode",
+        help="decode Base64 text",
+    )
+    b64_decode.add_argument("text")
+
+    sg = sub.add_parser(
+        "slugify",
+        help="convert text into a URL-friendly slug",
+    )
     sg.add_argument("text")
 
     top = sub.add_parser("top-words", help="show the most frequent words")
