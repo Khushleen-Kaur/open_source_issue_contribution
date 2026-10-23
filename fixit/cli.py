@@ -1,3 +1,4 @@
+
 """Command line entry point: `fixit <command>`."""
 import argparse
 import sys
@@ -14,12 +15,14 @@ from fixit import (
     wordcount,
 )
 
+
 CONVERSIONS = {
     "c2f": convert.celsius_to_fahrenheit,
     "f2c": convert.fahrenheit_to_celsius,
     "km2mi": convert.km_to_miles,
     "mi2km": convert.miles_to_km,
 }
+
 
 def run_wc(args):
     if args.file is not None:
@@ -38,6 +41,7 @@ def run_wc(args):
         f"chars={wordcount.count_chars(text)}"
     )
 
+
 def run_convert(args):
     try:
         result = CONVERSIONS[args.kind](args.value)
@@ -45,12 +49,15 @@ def run_convert(args):
     except KeyError:
         raise ValueError(f"Error: unknown conversion '{args.kind}'")
 
+
 def run_password(args):
     print(password.generate(args.length, use_symbols=args.symbols))
+
 
 def run_uuid(args):
     for _ in range(args.count):
         print(uuid.uuid4())
+
 
 def run_json(args):
     try:
@@ -58,17 +65,25 @@ def run_json(args):
     except ValueError as e:
         raise ValueError(f"Error: invalid JSON - {e}")
 
+
 def run_palindrome(args):
     print(textutils.is_palindrome(args.text))
 
+
 def run_reverse(args):
     print(textutils.reverse_words(args.text))
+
 
 def run_base64(args):
     if args.base64_action == "encode":
         print(base64utils.encode_text(args.text))
     else:
         print(base64utils.decode_text(args.text))
+
+
+def run_slugify(args):
+    print(textutils.slugify(args.text))
+
 
 COMMAND_TABLE = {
     "wc": run_wc,
@@ -79,7 +94,9 @@ COMMAND_TABLE = {
     "palindrome": run_palindrome,
     "reverse": run_reverse,
     "base64": run_base64,
+    "slugify": run_slugify,
 }
+
 
 def build_parser() -> argparse.ArgumentParser:
     """Build the argument parser for the fixit command-line interface.
@@ -89,10 +106,16 @@ def build_parser() -> argparse.ArgumentParser:
         args = parser.parse_args(["wc", "hello world"])
         assert args.command == "wc"
     """
-    parser = argparse.ArgumentParser(prog="fixit", description="A tiny toolbox to practice open source.")
-    parser.add_argument("--version", action="version", version=f"fixit {__version__}")
+    parser = argparse.ArgumentParser(
+        prog="fixit",
+        description="A tiny toolbox to practice open source.",
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"fixit {__version__}",
+    )
     sub = parser.add_subparsers(dest="command", required=True)
-
 
     wc = sub.add_parser("wc", help="count words, lines and characters")
     wc.add_argument("text", nargs="?")
@@ -101,7 +124,6 @@ def build_parser() -> argparse.ArgumentParser:
     cv = sub.add_parser("convert", help="convert units")
     cv.add_argument("value", type=float)
     cv.add_argument("kind", choices=sorted(CONVERSIONS))
-
 
     pw = sub.add_parser("password", help="generate a password")
     pw.add_argument("--length", type=int, default=12)
@@ -128,8 +150,10 @@ def build_parser() -> argparse.ArgumentParser:
     b64_decode = b64_sub.add_parser("decode", help="decode Base64 text")
     b64_decode.add_argument("text")
 
-    return parser
+    slug = sub.add_parser("slugify", help="convert text to a URL-friendly slug")
+    slug.add_argument("text")
 
+    return parser
 
 
 def main(argv=None) -> int:
@@ -145,7 +169,6 @@ def main(argv=None) -> int:
     except ValueError as e:
         print(str(e), file=sys.stderr)
         return 1
-
 
 
 if __name__ == "__main__":
