@@ -142,16 +142,28 @@ def build_parser() -> argparse.ArgumentParser:
     rw.add_argument("text")
 
     b64 = sub.add_parser("base64", help="encode or decode Base64 text")
-    b64_sub = b64.add_subparsers(dest="base64_action", required=True)
+    b64_sub = b64.add_subparsers(
+        dest="base64_action",
+        required=True,
+    )
 
-    b64_encode = b64_sub.add_parser("encode", help="encode text as Base64")
+    b64_encode = b64_sub.add_parser(
+        "encode",
+        help="encode text as Base64",
+    )
     b64_encode.add_argument("text")
 
-    b64_decode = b64_sub.add_parser("decode", help="decode Base64 text")
+    b64_decode = b64_sub.add_parser(
+        "decode",
+        help="decode Base64 text",
+    )
     b64_decode.add_argument("text")
 
-    slug = sub.add_parser("slugify", help="convert text to a URL-friendly slug")
-    slug.add_argument("text")
+    sg = sub.add_parser(
+        "slugify",
+        help="convert text into a URL-friendly slug",
+    )
+    sg.add_argument("text")
 
     return parser
 

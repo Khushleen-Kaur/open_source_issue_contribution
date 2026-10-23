@@ -8,7 +8,13 @@ def is_palindrome(text: str) -> bool:
         is_palindrome("madam") returns True.
         is_palindrome("hello") returns False.
     """
-    return text == text[::-1]
+
+    cleaned = "".join(
+        ch.lower()
+        for ch in text
+        if ch.isalnum()
+    )
+    return cleaned == cleaned[::-1]
 
 
 def reverse_words(text: str) -> str:
@@ -18,3 +24,17 @@ def reverse_words(text: str) -> str:
         reverse_words("hello world") returns "world hello".
     """
     return " ".join(reversed(text.split()))
+
+    
+def slugify(text: str) -> str:
+    """Convert text into a URL-friendly slug.
+
+    Example:
+        slugify("Hello World!") returns "hello-world".
+    """
+    import re
+
+    text = text.lower()
+    text = re.sub(r"[^\w\s-]", "", text)
+    text = re.sub(r"[\s_-]+", "-", text)
+    return text.strip("-")
