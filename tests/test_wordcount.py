@@ -1,4 +1,5 @@
 import pytest
+
 from fixit.wordcount import count_chars, count_lines, count_words, top_words
 
 

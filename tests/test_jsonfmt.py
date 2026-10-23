@@ -1,4 +1,5 @@
 import pytest
+
 from fixit.jsonfmt import format_json
 
 

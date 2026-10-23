@@ -1,5 +1,6 @@
 from fixit import cli
 
+
 def test_invalid_json_returns_1():
     assert cli.main(["json", "{bad"]) == 1
 

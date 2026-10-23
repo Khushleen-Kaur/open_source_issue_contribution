@@ -1,4 +1,5 @@
 import pytest
+
 from fixit.password import generate
 
 

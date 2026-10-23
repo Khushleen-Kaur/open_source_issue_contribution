@@ -1,6 +1,11 @@
 import pytest
-from fixit.convert import (celsius_to_fahrenheit, fahrenheit_to_celsius,
-                           km_to_miles, miles_to_km)
+
+from fixit.convert import (
+    celsius_to_fahrenheit,
+    fahrenheit_to_celsius,
+    km_to_miles,
+    miles_to_km,
+)
 
 
 def test_c_to_f():

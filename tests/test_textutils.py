@@ -1,4 +1,5 @@
 import pytest
+
 from fixit.textutils import is_palindrome, reverse_words, slugify
 
 
