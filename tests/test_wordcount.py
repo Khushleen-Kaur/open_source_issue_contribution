@@ -11,14 +11,20 @@ def test_count_words_extra_spaces():
     assert count_words("hello    world") == 2
 
 
-@pytest.mark.xfail(reason="Known bug: empty string returns 1")
 def test_count_words_empty():
     assert count_words("") == 0
 
 
-@pytest.mark.xfail(reason="Known bug: trailing newline adds a phantom line")
 def test_count_lines_trailing_newline():
     assert count_lines("a\nb\n") == 2
+
+
+def test_count_lines_empty():
+    assert count_lines("") == 0
+
+
+def test_count_words_whitespace_only():
+    assert count_words(" \t\n ") == 0
 
 
 def test_count_chars():
