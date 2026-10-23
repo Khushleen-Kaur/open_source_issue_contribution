@@ -131,6 +131,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+
 def main(argv=None) -> int:
     """Run a fixit command and return its exit status.
 
@@ -139,27 +140,12 @@ def main(argv=None) -> int:
     """
     try:
         args = build_parser().parse_args(argv)
-        if args.command == "wc":
-            run_wc(args)
-        elif args.command == "convert":
-            print(CONVERSIONS[args.kind](args.value))
-        elif args.command == "password":
-            print(password.generate(args.length, use_symbols=args.symbols))
-        elif args.command == "uuid":
-            for _ in range(args.count):
-                print(uuid.uuid4())
-        elif args.command == "json":
-            print(jsonfmt.format_json(args.raw))
-        elif args.command == "palindrome":
-            print(textutils.is_palindrome(args.text))
-        elif args.command == "reverse":
-            print(textutils.reverse_words(args.text))
-        elif args.command == "base64":
-            run_base64(args)
+        COMMAND_TABLE[args.command](args)
         return 0
     except ValueError as e:
         print(str(e), file=sys.stderr)
         return 1
+
 
 
 if __name__ == "__main__":
