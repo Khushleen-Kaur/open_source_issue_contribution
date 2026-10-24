@@ -11,7 +11,7 @@ requires-python = ">=3.8"
 license = { text = "MIT" }
 
 [project.optional-dependencies]
-dev = ["pytest", "ruff>=0.12.0"]
+dev = ["pytest", "ruff>=0.12.0", "mypy>=1.0,<2"]
 
 [project.scripts]
 fixit = "fixit.cli:main"
@@ -23,5 +23,11 @@ packages = ["fixit"]
 line-length = 88
 target-version = "py39"
 
+[tool.ruff.lint.per-file-ignores]
+"fixit/cli.py" = ["FA100"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.9"

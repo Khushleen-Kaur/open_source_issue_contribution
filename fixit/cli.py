@@ -3,7 +3,9 @@
 import argparse
 import sys
 import uuid
+from collections.abc import Sequence
 from pathlib import Path
+from typing import Optional
 
 from fixit import __version__, convert, jsonfmt, password, textutils, wordcount
 
@@ -15,7 +17,7 @@ CONVERSIONS = {
 }
 
 
-def run_wc(args):
+def run_wc(args: argparse.Namespace) -> None:
     if args.file is not None:
         try:
             text = args.file.read_text(encoding="utf-8")
@@ -33,7 +35,7 @@ def run_wc(args):
     )
 
 
-def run_convert(args):
+def run_convert(args: argparse.Namespace) -> None:
     try:
         result = CONVERSIONS[args.kind](args.value)
         print(result)
@@ -41,36 +43,36 @@ def run_convert(args):
         raise ValueError(f"Error: unknown conversion '{args.kind}'")
 
 
-def run_password(args):
+def run_password(args: argparse.Namespace) -> None:
     print(password.generate(args.length, use_symbols=args.symbols))
 
 
-def run_uuid(args):
+def run_uuid(args: argparse.Namespace) -> None:
     for _ in range(args.count):
         print(uuid.uuid4())
 
 
-def run_json(args):
+def run_json(args: argparse.Namespace) -> None:
     try:
         print(jsonfmt.format_json(args.raw))
     except ValueError as e:
         raise ValueError(f"Error: invalid JSON - {e}")
 
 
-def run_palindrome(args):
+def run_palindrome(args: argparse.Namespace) -> None:
     print(textutils.is_palindrome(args.text))
 
 
-def run_reverse(args):
+def run_reverse(args: argparse.Namespace) -> None:
     print(textutils.reverse_words(args.text))
 
 
-def run_top_words(args):
+def run_top_words(args: argparse.Namespace) -> None:
     for word, count in wordcount.top_words(args.text, args.n):
         print(f"{word}: {count}")
 
 
-def run_slugify(args):
+def run_slugify(args: argparse.Namespace) -> None:
     print(textutils.slugify(args.text))
 
 
@@ -137,7 +139,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv=None) -> int:
+def main(argv: Optional[Sequence[str]] = None) -> int:
     """Run a fixit command and return its exit status.
 
     Example:
