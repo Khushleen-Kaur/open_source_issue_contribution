@@ -16,6 +16,7 @@ def test_palindrome_ignores_punctuation():
 def test_reverse_words_extra_spaces():
     assert reverse_words("hello   world") == "world hello"
 
+
 def test_slugify_basic():
     assert slugify("Hello World!") == "hello-world"
 

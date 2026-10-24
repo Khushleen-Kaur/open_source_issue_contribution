@@ -1,4 +1,5 @@
 """Command line entry point: `fixit <command>`."""
+
 import argparse
 import sys
 import uuid
@@ -94,9 +95,11 @@ def build_parser() -> argparse.ArgumentParser:
         args = parser.parse_args(["wc", "hello world"])
         assert args.command == "wc"
     """
-    parser = argparse.ArgumentParser(prog="fixit", description="A tiny toolbox to practice open source.")
+    parser = argparse.ArgumentParser(
+        prog="fixit", description="A tiny toolbox to practice open source."
+    )
     parser.add_argument("--version", action="version", version=f"fixit {__version__}")
-    sub = parser.add_subparsers(dest="command", required=True)
+    sub = parser.add_subparsers(dest="command")
 
     wc = sub.add_parser("wc", help="count words, lines and characters")
     wc.add_argument("text", nargs="?")
@@ -127,7 +130,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     top = sub.add_parser("top-words", help="show the most frequent words")
     top.add_argument("text")
-    top.add_argument("--n", type=int, default=3, help="number of words to show (default: 3)")
+    top.add_argument(
+        "--n", type=int, default=3, help="number of words to show (default: 3)"
+    )
 
     return parser
 
@@ -138,8 +143,17 @@ def main(argv=None) -> int:
     Example:
         main(["convert", "100", "c2f"]) prints 212.0 and returns 0.
     """
+    parser = build_parser()
+
+    if argv is None:
+        argv = sys.argv[1:]
+
+    if not argv:
+        parser.print_help()
+        return 0
+
     try:
-        args = build_parser().parse_args(argv)
+        args = parser.parse_args(argv)
         COMMAND_TABLE[args.command](args)
         return 0
     except ValueError as e:

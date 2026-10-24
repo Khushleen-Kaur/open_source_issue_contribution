@@ -1,8 +1,9 @@
 """Word, line and character counting."""
 
+from __future__ import annotations
+
 import re
 from collections import Counter
-from typing import List, Tuple
 
 
 def count_words(text: str) -> int:
@@ -35,7 +36,7 @@ def count_chars(text: str) -> int:
     return len(text)
 
 
-def top_words(text: str, n: int = 3) -> List[Tuple[str, int]]:
+def top_words(text: str, n: int = 3) -> list[tuple[str, int]]:
     """Return up to n most frequent words and their counts.
 
     Words are matched case-insensitively; punctuation is treated as a

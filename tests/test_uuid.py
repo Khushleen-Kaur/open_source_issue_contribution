@@ -1,7 +1,5 @@
 from uuid import UUID
 
-import pytest
-
 from fixit.cli import main
 
 

@@ -9,11 +9,7 @@ def is_palindrome(text: str) -> bool:
         is_palindrome("hello") returns False.
     """
 
-    cleaned = "".join(
-        ch.lower()
-        for ch in text
-        if ch.isalnum()
-    )
+    cleaned = "".join(ch.lower() for ch in text if ch.isalnum())
     return cleaned == cleaned[::-1]
 
 
@@ -25,7 +21,7 @@ def reverse_words(text: str) -> str:
     """
     return " ".join(reversed(text.split()))
 
-    
+
 def slugify(text: str) -> str:
     """Convert text into a URL-friendly slug.
 

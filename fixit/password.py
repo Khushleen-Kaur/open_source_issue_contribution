@@ -1,9 +1,12 @@
 """Random password generator."""
+
 import random
 import string
 
 
-def generate(length: int = 12, use_digits: bool = True, use_symbols: bool = False) -> str:
+def generate(
+    length: int = 12, use_digits: bool = True, use_symbols: bool = False
+) -> str:
     """Generate a random password of the given length.
 
     Example:
