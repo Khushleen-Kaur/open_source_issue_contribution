@@ -1,4 +1,5 @@
 """Command line entry point: `fixit <command>`."""
+
 import argparse
 import sys
 import uuid
@@ -94,7 +95,9 @@ def build_parser() -> argparse.ArgumentParser:
         args = parser.parse_args(["wc", "hello world"])
         assert args.command == "wc"
     """
-    parser = argparse.ArgumentParser(prog="fixit", description="A tiny toolbox to practice open source.")
+    parser = argparse.ArgumentParser(
+        prog="fixit", description="A tiny toolbox to practice open source."
+    )
     parser.add_argument("--version", action="version", version=f"fixit {__version__}")
     sub = parser.add_subparsers(dest="command")
 
@@ -127,7 +130,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     top = sub.add_parser("top-words", help="show the most frequent words")
     top.add_argument("text")
-    top.add_argument("--n", type=int, default=3, help="number of words to show (default: 3)")
+    top.add_argument(
+        "--n", type=int, default=3, help="number of words to show (default: 3)"
+    )
 
     return parser
 

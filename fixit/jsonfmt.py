@@ -1,4 +1,5 @@
 """JSON pretty-printer."""
+
 import json
 
 
