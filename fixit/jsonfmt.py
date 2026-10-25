@@ -11,6 +11,6 @@ def format_json(raw: str, indent: int = 2) -> str:
     """
     try:
         data = json.loads(raw)
-        return json.dumps(data, indent=indent)
+        return json.dumps(data, indent=indent, ensure_ascii=False)
     except json.JSONDecodeError:
         raise ValueError("Invalid JSON")
