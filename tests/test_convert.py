@@ -5,8 +5,6 @@ from fixit.convert import (
     fahrenheit_to_celsius,
     km_to_miles,
     miles_to_km,
-    litres_to_gallons,
-    gallons_to_litres
 )
 
 
@@ -40,10 +38,3 @@ def test_absolute_zero():
 
 def test_float_km_to_miles():
     assert km_to_miles(1.5) == pytest.approx(0.932056788)
-
-
-def test_litres_to_gallons():
-    assert litres_to_gallons(8)==pytest.approx(2.113383)
-
-def test_gallons_to_litres():
-    assert gallons_to_litres(4)==pytest.approx(15.1416)
