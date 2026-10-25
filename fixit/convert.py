@@ -1,6 +1,7 @@
 """Unit conversions."""
 
 KM_PER_MILE = 1.609344
+LBS_PER_KG = 2.20462
 
 
 def celsius_to_fahrenheit(c: float) -> float:
@@ -54,3 +55,19 @@ def gallons_to_litres(gallons: float)->float:
         gal2l(1) return approximately 3.7854
     """
     return gallons*3.7854
+def kg_to_lbs(kg: float) -> float:
+    """Convert kilograms to pounds.
+
+    Example:
+        kg_to_lbs(1) returns approximately 2.20462.
+    """
+    return kg * LBS_PER_KG
+
+
+def lbs_to_kg(lbs: float) -> float:
+    """Convert pounds to kilograms.
+
+    Example:
+        lbs_to_kg(2.20462) returns approximately 1.
+    """
+    return lbs / LBS_PER_KG
