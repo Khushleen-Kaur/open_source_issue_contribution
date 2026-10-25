@@ -1,5 +1,8 @@
 ## What does this PR do?
 <!-- Short description of your change -->
+added gallons to litres conversion and vice versa,
+added cli choice for both of them too,
+also made the conversion test
 
 ## Related issue
 Closes #
