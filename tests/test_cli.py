@@ -43,3 +43,11 @@ def test_top_words_command_defaults_to_three(capsys):
 
     assert result == 0
     assert capsys.readouterr().out == "one: 1\ntwo: 1\nthree: 1\n"
+
+
+def test_json_command_sort_keys(capsys):
+    result = main(["json", '{"b": 1, "a": 2}', "--sort-keys"])
+
+    assert result == 0
+    assert capsys.readouterr().out == '{\n  "a": 2,\n  "b": 1\n}\n'
+
