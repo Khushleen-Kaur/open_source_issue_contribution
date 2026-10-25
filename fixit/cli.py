@@ -14,7 +14,6 @@ CONVERSIONS = {
     "f2c": convert.fahrenheit_to_celsius,
     "km2mi": convert.km_to_miles,
     "mi2km": convert.miles_to_km,
-    "l2gal": convert.litres_to_gallons,
 }
 
 

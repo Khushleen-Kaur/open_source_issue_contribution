@@ -40,21 +40,6 @@ def miles_to_km(miles: float) -> float:
     return miles * KM_PER_MILE
 
 
-def litres_to_gallons(litre: float)->float:
-    """Convert litres to US gallons.
-    
-    example:
-        l2gal(1) return approximately 0.2641
-    """
-    return litre*0.2641
-
-def gallons_to_litres(gallons: float)->float:
-    """Convert US gallons to litres.
-    
-    example:
-        gal2l(1) return approximately 3.7854
-    """
-    return gallons*3.7854
 def kg_to_lbs(kg: float) -> float:
     """Convert kilograms to pounds.
 
