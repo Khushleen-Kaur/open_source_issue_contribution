@@ -3,7 +3,7 @@
 import json
 
 
-def format_json(raw: str, indent: int = 2, sort_keys: bool = False) -> str:
+def format_json(raw: str, indent: int = 2) -> str:
     """Format a JSON string with indentation.
 
     Example:
@@ -11,6 +11,6 @@ def format_json(raw: str, indent: int = 2, sort_keys: bool = False) -> str:
     """
     try:
         data = json.loads(raw)
-        return json.dumps(data, indent=indent, sort_keys=sort_keys)
+        return json.dumps(data, indent=indent)
     except json.JSONDecodeError:
         raise ValueError("Invalid JSON")
